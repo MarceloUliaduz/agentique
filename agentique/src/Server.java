@@ -1,0 +1,2 @@
+public interface Server {
+}
