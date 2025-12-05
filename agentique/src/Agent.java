@@ -7,5 +7,5 @@ public interface Agent extends Serializable {
     Hashtable<String, Object> getNameServer();
     void move(Node target) throws MoveException;
     void back() throws MoveException;
-    void main(String[] args) throws MoveException;
+    void main() throws MoveException; // j'ai enlevé le [] args parce que jsp quoi mettre quand je l'appelle
 }
