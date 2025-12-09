@@ -2,8 +2,9 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-public class ServerImpl implements Server {
+public class ServerImpl implements Server{
     private int port;
+    private static final int BUFF_SIZE = 2048;
     private static Hashtable<String, Object> etatServeur = new Hashtable<>();
 
     public ServerImpl(int port) {
@@ -19,13 +20,18 @@ public class ServerImpl implements Server {
 
             while (true) {
                 Socket cs = ss.accept(); // cs pour ClientSocket
-                Thread fils = new Thread(() -> {
-                    try {
-                        gererAgentEntrant(cs);
-                    } catch (MoveException e) {
-                        e.printStackTrace();
+                Thread fils = new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            gererAgentEntrant(cs);
+                        } catch (MoveException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
+
                 fils.start();
             }
         } catch (Exception e) {
@@ -63,4 +69,6 @@ public class ServerImpl implements Server {
             throw new MoveException("jsp pourquoi mais ça marche pas");
         }
     }
+
+
 }

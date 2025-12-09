@@ -25,6 +25,7 @@ public class AgentImpl implements Agent {
     @Override
     public void move(Node target) throws MoveException {
         //TODO: implémenter move
+        ClassLoader cl = getClass().getClassLoader();
         ServerImpl.transfereAgent(this,target);
     }
 
@@ -33,7 +34,7 @@ public class AgentImpl implements Agent {
         move(origin);
     }
 
-    @Override
+
     public void main() throws MoveException { // j'ai enlevé le [] args parce que jsp quoi mettre quand je l'appelle
 
     }

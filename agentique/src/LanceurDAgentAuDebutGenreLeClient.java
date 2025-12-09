@@ -3,13 +3,18 @@ import java.io.*;
 
 public class LanceurDAgentAuDebutGenreLeClient {
     public static void main(String[] args) throws Exception{
-        Hello hello = new Hello();
-        hello.init("Hello", new Node("localhost", 2000));
-        Socket socket = new Socket("localhost", 2001);
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+        if (args.length < 1) {
+            System.out.println("Pas de port");
+            System.exit(0);
+        }
 
-        //TODO : comme l'autre là il faut le loader ? l'envoyer dans l'oos ?
-        socket.close();
+        int port = Integer.parseInt(args[0]);
+
+        Agent hello = new Hello();
+
+        hello.init("Hello", new Node("localhost", port));
+        hello.main();
+
         System.out.println("premier lancé ok");
     }
 }
