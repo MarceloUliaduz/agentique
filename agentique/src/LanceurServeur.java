@@ -1,4 +1,4 @@
-public class LanceurDeServeur {
+public class LanceurServeur {
 
     public static void main(String[] args){
         if (args.length < 1) {
