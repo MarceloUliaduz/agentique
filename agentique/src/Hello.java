@@ -6,24 +6,25 @@ public class Hello extends AgentImpl {
     Node place = null;
 
     public void main() throws MoveException {
+
         if (start) {
             start = false;
             place = n1;
             System.out.println("before move to node1: Hello World !!!!");
             move(n1);
         }
-        if (place == n1) {
+        else if (place != null && place.equals(n1)) {
             place = n2;
             System.out.println("before move to node2: Hello World !!!!");
             move(n2);
         }
-        if (place == n2) {
+        else if (place != null && place.equals(n2)) {
             place = null;
             System.out.println("before back: Hello World !!!!");
             back();
+        }else if (place == null){
+            System.out.println("de retour");
         }
-
-        System.out.println("I am back: Hello World !!!!");
 
         //Object o = getNameServer().get(this.getClass().getName()+"_lock");
         //synchronized(o) {o.notify();}

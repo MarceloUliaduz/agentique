@@ -12,8 +12,6 @@ public class ServerImpl implements Server{
     }
 
     public static void start(int port) {
-
-
         try {
             ServerSocket ss = new ServerSocket(port);
             System.out.println("Server démaré sur le port : " + port);
@@ -31,7 +29,6 @@ public class ServerImpl implements Server{
                         }
                     }
                 });
-
                 fils.start();
             }
         } catch (Exception e) {
@@ -39,21 +36,43 @@ public class ServerImpl implements Server{
         }
     }
 
+
     public static void gererAgentEntrant(Socket socketClient) {
         try {
-            ObjectInputStream ois = new ObjectInputStream(socketClient.getInputStream());
-            // TODO:Réception du code Agent (ns) avec le Class Loader
-            // TODO:a = réception de l'objet Agent
+            InputStream is = socketClient.getInputStream();
+            DataInputStream in = new DataInputStream(is);
 
-            // Exécuter le code de l'agent
-            Thread fils = new Thread(() -> {
+            String className = in.readUTF();
+            int classLen = in.readInt();
+            byte[] classBytes = in.readNBytes(classLen);
+
+            int objLen = in.readInt();
+            byte[] objBytes = in.readNBytes(objLen);
+
+            Loader loader = new Loader();
+            loader.addClass(className, classBytes);
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(objBytes);
+            ObjectInputStream ois = new ObjectInputStream(bais) {
+                @Override
+                protected Class<?> resolveClass(ObjectStreamClass desc)
+                        throws IOException, ClassNotFoundException {
+                    return loader.loadClass(desc.getName());
+                }
+            };
+
+            Agent agent = (Agent) ois.readObject();
+            agent.setNameServer(etatServeur);
+            Thread agentThread = new Thread(() -> {
                 try {
-                    // TODO:a.ns.main
+                    agent.main();
                 } catch (MoveException e) {
                     e.printStackTrace();
                 }
             });
-            fils.start();
+            agentThread.start();
+            socketClient.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
