@@ -28,23 +28,17 @@ public class AgentImpl implements Agent {
     @Override
     public void move(Node target) throws MoveException {
         try {
-            System.out.println("on va ouvrir un socket sur : nom = " + target.getName() + "et port = " + target.getPort() + "\n");
-
-            Socket s = new Socket(target.getName(), target.getPort());
-            System.out.println("on est passééés ");
-
-
+            Socket s = new  Socket(target.getName(), target.getPort());
             OutputStream os = s.getOutputStream();
 
             String className = this.getClass().getName();
-            System.out.println("nom de la classe ouverte : " + className  + "\n");
 
-            // Lecture code du .class
+            // Lecture code du .class -----> Deepseek
             String classPath = className.replace('.', '/') + ".class";;
 
             InputStream classStream = this.getClass().getClassLoader().getResourceAsStream(classPath);
 
-            // Lire tous les bytes de la classe
+            // Lire tous les bytes de la classe -----> Deepseek
             ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[4096];
             int bytesRead;
