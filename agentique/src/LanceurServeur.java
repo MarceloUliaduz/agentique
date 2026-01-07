@@ -7,10 +7,9 @@ public class LanceurServeur {
         }
 
         int port = Integer.parseInt(args[0]);
-        ServerImpl serv = new ServerImpl(port);
 
         try {
-            serv.start(port);
+            Server.start(port);
         } catch (Exception e) {
             e.printStackTrace();
         }
