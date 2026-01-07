@@ -14,7 +14,7 @@ public class ServerImpl implements Server{
     public static void start(int port) {
         try {
             ServerSocket ss = new ServerSocket(port);
-            System.out.println("Server démaré sur le port : " + port);
+            System.out.println("Server démarré sur le port : " + port);
 
             while (true) {
                 Socket cs = ss.accept(); // cs pour ClientSocket

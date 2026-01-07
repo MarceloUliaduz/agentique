@@ -28,7 +28,7 @@ public class AgentImpl implements Agent {
     @Override
     public void move(Node target) throws MoveException {
         try {
-            Socket s = new  Socket(target.getName(), target.getPort());
+            Socket s = new Socket(target.getName(), target.getPort());
             OutputStream os = s.getOutputStream();
 
             String className = this.getClass().getName();
