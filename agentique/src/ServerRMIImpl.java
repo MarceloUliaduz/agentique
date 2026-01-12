@@ -1,16 +1,28 @@
+import java.rmi.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.rmi.RemoteException;
-import java.util.Hashtable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     private Hashtable<String, byte[]> baseDeDonnees = new Hashtable<>();
 
-    public ServerRMIImpl() throws RemoteException {
+    public ServerRMIImpl() throws RemoteException {}
 
-        //On fait la base de données
+    @Override
+    public byte[] getFichier(String name) throws RemoteException {
+        return baseDeDonnees.get(name);
+    }
+
+    @Override
+    public List<String> getCatalogue() throws RemoteException {
+        return new ArrayList<>(baseDeDonnees.keySet());
+    }
+
+    public static void main(String[] args) throws RemoteException{
+
+        ServerRMIImpl serveur = new ServerRMIImpl();
+        //On fait la base de donnÃƒÂ©es
         int nbFichiers = 10;
         int tailleFichier = 1024 * 1024; // 1 Mo
 
@@ -21,22 +33,19 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
             Random r = new Random();
             for (int j = 0; j < tailleFichier; j++) {
                 if (j < tailleFichier / 2) {
-                    content[j] = (byte) r.nextInt(256); // Aléatoire
+                    content[j] = (byte) r.nextInt(256); // AlÃƒÂ©atoire
                 } else {
-                    content[j] = (byte) 'A'; // Répétitif
+                    content[j] = (byte) 'A'; // RÃƒÂ©pÃƒÂ©titif
                 }
             }
-            baseDeDonnees.put("file_" + i + ".dat", content);
+            serveur.baseDeDonnees.put("file_" + i + ".dat", content);
         }
-    }
 
-    @Override
-    public byte[] getFichier(String name) throws RemoteException {
-        return baseDeDonnees.get(name);
-    }
+        try{
+            Registry registry = LocateRegistry.createRegistry(2002);
+            Naming.rebind("//localhost:2002/ServeurRMIImpl", new ServerRMIImpl());
+        }catch(Exception e) {
 
-    @Override
-    public List<String> getCatalogue() throws RemoteException {
-        return new ArrayList<>(baseDeDonnees.keySet());
+        }
     }
 }
