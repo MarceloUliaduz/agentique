@@ -1,18 +1,16 @@
+import java.rmi.server.UnicastRemoteObject;
+import java.rmi.RemoteException;
 import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class LanceurServeur {
+public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
+    private Hashtable<String, byte[]> baseDeDonnees = new Hashtable<>();
 
-    public static void main(String[] args){
-        if (args.length < 1) {
-            System.out.println("Pas de port, faire java LanceurServeur [port]");
-            System.exit(0);
-        }
-
-        int port = Integer.parseInt(args[0]);
+    public ServerRMIImpl() throws RemoteException {
 
         //On fait la base de données
-        Hashtable<String, byte[]> dbFiles = new Hashtable<>();
         int nbFichiers = 10;
         int tailleFichier = 1024 * 1024; // 1 Mo
 
@@ -28,17 +26,17 @@ public class LanceurServeur {
                     content[j] = (byte) 'A'; // Répétitif
                 }
             }
-            dbFiles.put("file_" + i + ".dat", content);
+            baseDeDonnees.put("file_" + i + ".dat", content);
         }
+    }
 
-        //On la met dans le serveur
-        Server.etatServeur.put("DB_FILES", dbFiles);
-        System.out.println("Base de données chargée dans DB_FILES");
+    @Override
+    public byte[] getFichier(String name) throws RemoteException {
+        return baseDeDonnees.get(name);
+    }
 
-        try {
-            Server.start(port);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Override
+    public List<String> getCatalogue() throws RemoteException {
+        return new ArrayList<>(baseDeDonnees.keySet());
     }
 }

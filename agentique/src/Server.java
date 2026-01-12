@@ -66,7 +66,7 @@ public interface Server {
                     e.printStackTrace();
                 }
             });
-            agentThread.start();
+            agentThread.start(); // on lance le main de l'agent
             socketClient.close();
 
         } catch (Exception e) {
