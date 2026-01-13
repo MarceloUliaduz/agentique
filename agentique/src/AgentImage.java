@@ -7,8 +7,8 @@ public class AgentImage extends AgentImpl {
     long startingTime, endingTime;
     int nbFichiers = 10;
     boolean start = true;
-    Node n1 = new Node("localhost",2001); // à modifier en focntion de la machine ENSEEIHT
-    Node n2 = new Node("localhost",2002); // à modifier en focntion de la machine ENSEEIHT
+    Node n1 = new Node("localhost", 2001); // à modifier en focntion de la machine ENSEEIHT
+    Node n2 = new Node("localhost", 2002); // à modifier en focntion de la machine ENSEEIHT
     Node place = null;
 
     private Hashtable<String, byte[]> results = new Hashtable<>();
@@ -22,8 +22,7 @@ public class AgentImage extends AgentImpl {
             place = n1;
             System.out.println("Avant de lancer l'opération");
             move(n1);
-        }
-        else if (place != null && place.equals(n1)) { // on demande l'annuaire au serveur 1 et on va sur le 2
+        } else if (place != null && place.equals(n1)) { // on demande l'annuaire au serveur 1 et on va sur le 2
             place = n2;
             System.out.println("Demande le catalogue");
             // on demande l'annuaire au serveur 1
@@ -31,7 +30,7 @@ public class AgentImage extends AgentImpl {
 
             if (data != null) {
                 for (int i = 0; i < nbFichiers; i++) {
-                        results.put("data", compress(data));
+                    results.put("data", compress(data));
                 }
             }
 
@@ -39,7 +38,7 @@ public class AgentImage extends AgentImpl {
             System.out.println("Avant de retourner à la maison");
             place = null;
             back();
-        }else if (place == null){ //name.hasMoreElements();
+        } else if (place == null) { //name.hasMoreElements();
             System.out.println("de retour");
 
             endingTime = System.currentTimeMillis();

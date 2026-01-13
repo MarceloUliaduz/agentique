@@ -7,7 +7,8 @@ import java.util.*;
 public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     private Hashtable<String, byte[]> baseDeDonnees = new Hashtable<>();
 
-    public ServerRMIImpl() throws RemoteException {}
+    public ServerRMIImpl() throws RemoteException {
+    }
 
     @Override
     public byte[] getFichier(String name) throws RemoteException {
@@ -19,7 +20,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         return new ArrayList<>(baseDeDonnees.keySet());
     }
 
-    public static void main(String[] args) throws RemoteException{
+    public static void main(String[] args) throws RemoteException {
 
         ServerRMIImpl serveur = new ServerRMIImpl();
         //On fait la base de donnÃƒÂ©es
@@ -41,10 +42,10 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
             serveur.baseDeDonnees.put("file_" + i + ".dat", content);
         }
 
-        try{
+        try {
             Registry registry = LocateRegistry.createRegistry(2002);
             Naming.rebind("//localhost:2002/ServeurRMIImpl", new ServerRMIImpl());
-        }catch(Exception e) {
+        } catch (Exception e) {
 
         }
     }

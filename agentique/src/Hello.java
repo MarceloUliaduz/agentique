@@ -1,34 +1,34 @@
 public class Hello extends AgentImpl {
 
-  long startingTime, endingTime;
-  boolean start = true;
-  Node n1 = new Node("localhost", 2001);
-  Node n2 = new Node("localhost", 2002);
-  Node place = null;
+    long startingTime, endingTime;
+    boolean start = true;
+    Node n1 = new Node("localhost", 2001);
+    Node n2 = new Node("localhost", 2002);
+    Node place = null;
 
-  public void main() throws MoveException {
+    public void main() throws MoveException {
 
-    if (start) {
-      startingTime = System.currentTimeMillis();
-      start = false;
-      place = n1;
-      System.out.println("before move to node1: Hello World !!!!");
-      move(n1);
-    } else if (place != null && place.equals(n1)) {
-      place = n2;
-      System.out.println("before move to node2: Hello World !!!!");
-      move(n2);
-    } else if (place != null && place.equals(n2)) {
-      place = null;
-      System.out.println("before back: Hello World !!!!");
-      back();
-    } else if (place == null) {
-      System.out.println("de retour");
-      endingTime = System.currentTimeMillis();
-      System.out.println("Temps total = " + (endingTime - startingTime));
+        if (start) {
+            startingTime = System.currentTimeMillis();
+            start = false;
+            place = n1;
+            System.out.println("before move to node1: Hello World !!!!");
+            move(n1);
+        } else if (place != null && place.equals(n1)) {
+            place = n2;
+            System.out.println("before move to node2: Hello World !!!!");
+            move(n2);
+        } else if (place != null && place.equals(n2)) {
+            place = null;
+            System.out.println("before back: Hello World !!!!");
+            back();
+        } else if (place == null) {
+            System.out.println("de retour");
+            endingTime = System.currentTimeMillis();
+            System.out.println("Temps total = " + (endingTime - startingTime));
+        }
+
+        // Object o = getNameServer().get(this.getClass().getName()+"_lock");
+        // synchronized(o) {o.notify();}
     }
-
-    // Object o = getNameServer().get(this.getClass().getName()+"_lock");
-    // synchronized(o) {o.notify();}
-  }
 }

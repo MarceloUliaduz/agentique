@@ -1,7 +1,7 @@
 import java.util.Objects;
 import java.io.Serializable;
 
-public class Node implements Serializable{
+public class Node implements Serializable {
     private String name;
     private int port;
 

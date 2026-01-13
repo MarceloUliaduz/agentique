@@ -101,9 +101,9 @@ public class ServerImpl implements Server {
         Random r = new Random();
         for (int j = 0; j < tailleFichier; j++) {
             if (j < tailleFichier / 2) {
-                data[j] = (byte)r.nextInt(256); // Aléatoire
+                data[j] = (byte) r.nextInt(256); // Aléatoire
             } else {
-                data[j] = (byte)'A'; // Répétitif
+                data[j] = (byte) 'A'; // Répétitif
             }
         }
     }

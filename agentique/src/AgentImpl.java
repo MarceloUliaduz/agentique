@@ -29,13 +29,14 @@ public class AgentImpl implements Agent {
     @Override
     public void move(Node target) throws MoveException {
         try {
-            Socket s = new  Socket(target.getName(), target.getPort());
+            Socket s = new Socket(target.getName(), target.getPort());
             OutputStream os = s.getOutputStream();
 
             String className = this.getClass().getName();
 
             // Lecture code du .class -----> Deepseek
-            String classPath = className.replace('.', '/') + ".class";;
+            String classPath = className.replace('.', '/') + ".class";
+            ;
 
             InputStream classStream = this.getClass().getClassLoader().getResourceAsStream(classPath);
 
@@ -75,6 +76,7 @@ public class AgentImpl implements Agent {
             throw new MoveException("Erreur: " + e.getMessage());
         }
     }
+
     @Override
     public void back() throws MoveException {
         move(origin);
