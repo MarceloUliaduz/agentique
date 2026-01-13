@@ -11,6 +11,7 @@ public class AgentImage extends AgentImpl {
 
     private Hashtable<String, byte[]> results = new Hashtable<>();
 
+    @Override
     public void main() throws MoveException {
 
         if (start) { // On commence par aller au serveur 1
@@ -23,20 +24,14 @@ public class AgentImage extends AgentImpl {
             place = n2;
             System.out.println("Demande le catalogue");
             // on demande l'annuaire au serveur 1
-            Hashtable<String, byte[]> db = (Hashtable<String, byte[]>) getNameServer().get("DB_FILES");
-            // On compresse les images
-            if (db != null) {
-                Enumeration<String> keys = db.keys();
-                while (keys.hasMoreElements()) {
-                    String fileName = keys.nextElement();
-                    byte[] rawContent = db.get(fileName);
+            byte[] data = (byte[]) getNameServer().get("data");
 
-                    // On compresse et on stocke dans l'agent
-                    results.put(fileName, compress(rawContent));
-                    System.out.println("Fichier " + fileName + " compressé localement");
-                }
+            if (data != null) {
+                results.put("data", compress(data));
             }
+
             System.out.println("Avant de retourner à la maison");
+            place = null;
             back();
         }else if (place == null){ //name.hasMoreElements();
             System.out.println("de retour");

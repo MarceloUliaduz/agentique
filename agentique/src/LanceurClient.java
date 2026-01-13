@@ -13,19 +13,15 @@ public class LanceurClient {
         String filename = args[1];
         String agentName = args[2];
 
-        ZipFile zf = new ZipFile(filename);
-        Enumeration<? extends ZipEntry> entries = zf.entries();
-        while(entries.hasMoreElements()){
-            ZipEntry entry = entries.nextElement();
-        }
-
         try {
             Class<?> cls = Class.forName(agentName);
             Agent agent = (Agent) cls.getDeclaredConstructor().newInstance();
 
             agent.init(agentName, new Node("localhost", port));
             agent.main();
-            Server.start(port);
+
+            Server serv = new ServerImpl(port);
+            serv.start();
         } catch (ClassNotFoundException e) {
             System.err.println("Programme " + e.getMessage() + " non trouvé");
             System.exit(1);

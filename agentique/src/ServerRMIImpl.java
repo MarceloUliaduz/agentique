@@ -23,7 +23,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
 
         ServerRMIImpl serveur = new ServerRMIImpl();
         //On fait la base de donnÃƒÂ©es
-        int nbFichiers = 10;
+        int nbFichiers = 1;
         int tailleFichier = 1024 * 1024; // 1 Mo
 
         System.out.println("On génère " + nbFichiers + " fichiers");
