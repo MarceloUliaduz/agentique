@@ -68,6 +68,7 @@ public class ServerImpl implements Server {
             };
 
             Agent agent = (Agent) ois.readObject();
+
             if (data != null) {
                 etatServeur.put("data", data);
             }

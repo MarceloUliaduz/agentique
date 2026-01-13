@@ -21,7 +21,6 @@ public class LanceurClient {
             agent.main();
 
             Server serv = new ServerImpl(port);
-            serv.initiateData();
             serv.start();
         } catch (ClassNotFoundException e) {
             System.err.println("Programme " + e.getMessage() + " non trouvé");

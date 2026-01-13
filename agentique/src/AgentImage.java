@@ -5,13 +5,13 @@ import java.util.zip.GZIPOutputStream;
 
 public class AgentImage extends AgentImpl {
     long startingTime, endingTime;
-    int nbFichiers = 10;
+    int nbFichiers = 1000;
     boolean start = true;
     Node n1 = new Node("localhost", 2001); // à modifier en focntion de la machine ENSEEIHT
     Node n2 = new Node("localhost", 2002); // à modifier en focntion de la machine ENSEEIHT
     Node place = null;
 
-    private Hashtable<String, byte[]> results = new Hashtable<>();
+    private String results = "";
 
     @Override
     public void main() throws MoveException {
@@ -30,7 +30,9 @@ public class AgentImage extends AgentImpl {
 
             if (data != null) {
                 for (int i = 0; i < nbFichiers; i++) {
-                    results.put("data", compress(data));
+                    // tentative de concaténer 2 tableaux de bytes
+                    String a = compress(data).toString();
+                    results = results + a;
                 }
             }
 

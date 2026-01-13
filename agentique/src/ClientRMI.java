@@ -8,7 +8,7 @@ public class ClientRMI {
     public static void main(String[] args) {
         try {
             // Connexion au serveur 1
-            ServerRMI serveur = (ServerRMI) Naming.lookup("rmi://147.127.135.71:2002/ServeurRMIImpl");
+            ServerRMI serveur = (ServerRMI) Naming.lookup("rmi://localhost:2002/ServeurRMIImpl");
 
             // On commence la mesure de temps
             long startTime = System.currentTimeMillis();

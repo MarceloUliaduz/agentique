@@ -7,7 +7,7 @@ public class AgentImpl implements Agent {
 
     protected String name;
     protected Node origin;
-    protected Hashtable<String, Object> nameServer;
+    protected transient Hashtable<String, Object> nameServer;
 
     @Override
     public void init(String name, Node origin) {
