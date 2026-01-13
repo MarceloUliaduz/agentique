@@ -1,5 +1,6 @@
 public class Hello extends AgentImpl {
 
+  long startingTime, endingTime;
   boolean start = true;
   Node n1 = new Node("localhost", 2001);
   Node n2 = new Node("localhost", 2002);
@@ -8,6 +9,7 @@ public class Hello extends AgentImpl {
   public void main() throws MoveException {
 
     if (start) {
+      startingTime = System.currentTimeMillis();
       start = false;
       place = n1;
       System.out.println("before move to node1: Hello World !!!!");
@@ -22,6 +24,8 @@ public class Hello extends AgentImpl {
       back();
     } else if (place == null) {
       System.out.println("de retour");
+      endingTime = System.currentTimeMillis();
+      System.out.println("Temps total = " + (endingTime - startingTime));
     }
 
     // Object o = getNameServer().get(this.getClass().getName()+"_lock");

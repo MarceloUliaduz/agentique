@@ -18,6 +18,7 @@ public class AgentImpl implements Agent {
     @Override
     public void setNameServer(Hashtable<String, Object> ns) {
         this.nameServer = ns;
+        System.out.println(ns);
     }
 
     @Override

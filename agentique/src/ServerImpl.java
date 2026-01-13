@@ -97,7 +97,7 @@ public class ServerImpl implements Server {
     public void initiateData() {
         int tailleFichier = 1024 * 1024; // 1 Mo
 
-        byte[] data = new byte[tailleFichier];
+        data = new byte[tailleFichier];
         Random r = new Random();
         for (int j = 0; j < tailleFichier; j++) {
             if (j < tailleFichier / 2) {

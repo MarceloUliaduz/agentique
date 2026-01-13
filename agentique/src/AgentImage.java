@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.zip.GZIPOutputStream;
 
 public class AgentImage extends AgentImpl {
+    long startingTime, endingTime;
+    int nbFichiers = 10;
     boolean start = true;
     Node n1 = new Node("localhost",2001); // à modifier en focntion de la machine ENSEEIHT
     Node n2 = new Node("localhost",2002); // à modifier en focntion de la machine ENSEEIHT
@@ -15,6 +17,7 @@ public class AgentImage extends AgentImpl {
     public void main() throws MoveException {
 
         if (start) { // On commence par aller au serveur 1
+            startingTime = System.currentTimeMillis();
             start = false;
             place = n1;
             System.out.println("Avant de lancer l'opération");
@@ -27,18 +30,21 @@ public class AgentImage extends AgentImpl {
             byte[] data = (byte[]) getNameServer().get("data");
 
             if (data != null) {
-                results.put("data", compress(data));
+                for (int i = 0; i < nbFichiers; i++) {
+                        results.put("data", compress(data));
+                }
             }
+
 
             System.out.println("Avant de retourner à la maison");
             place = null;
             back();
         }else if (place == null){ //name.hasMoreElements();
             System.out.println("de retour");
-            for (String fileName : results.keySet()) {
-                byte[] compressed = results.get(fileName);
-                System.out.println("Fichier : " + fileName + " | Taille compressée : " + compressed.length + " bytes");
-            }
+
+            endingTime = System.currentTimeMillis();
+
+            System.out.println("Temps total Agent pour " + nbFichiers + " fichiers : " + (endingTime - startingTime) + "ms");
         }
     }
 
