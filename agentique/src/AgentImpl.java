@@ -1,5 +1,4 @@
 import java.io.*;
-import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Hashtable;
 
@@ -16,14 +15,14 @@ public class AgentImpl implements Agent {
     }
 
     @Override
-    public void setNameServer(Hashtable<String, Object> ns) {
-        this.nameServer = ns;
-        System.out.println(ns);
+    public Hashtable<String, Object> getNameServer() {
+        return this.nameServer;
     }
 
     @Override
-    public Hashtable<String, Object> getNameServer() {
-        return this.nameServer;
+    public void setNameServer(Hashtable<String, Object> ns) {
+        this.nameServer = ns;
+        System.out.println(ns);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class AgentImpl implements Agent {
 
             // Lecture code du .class
             String classPath = className.replace('.', '/') + ".class";
-            ;
+
 
             InputStream classStream = this.getClass().getClassLoader().getResourceAsStream(classPath);
 
@@ -71,7 +70,7 @@ public class AgentImpl implements Agent {
 
             //oos.write(load.extractCode(this.name));
         } catch (Exception e) {
-            System.err.println("Exception bizarre: " + e.getClass().getName());
+            System.err.println("Exception : " + e.getClass().getName());
             e.printStackTrace();
             throw new MoveException("Erreur: " + e.getMessage());
         }
@@ -82,7 +81,7 @@ public class AgentImpl implements Agent {
         move(origin);
     }
 
-    public void main() throws MoveException { // j'ai enlevé le [] args parce que jsp quoi mettre quand je l'appelle
+    public void main() throws MoveException {
 
     }
 

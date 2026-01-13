@@ -1,6 +1,5 @@
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.*;
 import java.util.zip.GZIPOutputStream;
 
 public class AgentImage extends AgentImpl {
@@ -12,6 +11,23 @@ public class AgentImage extends AgentImpl {
     Node place = null;
 
     private String results = "";
+
+    public static byte[] compress(byte[] data) {
+        if (data == null || data.length == 0) {
+            return data;
+        }
+
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            GZIPOutputStream gos = new GZIPOutputStream(baos);
+            gos.write(data);
+            gos.finish();
+            return baos.toByteArray();
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la compression : " + e.getMessage());
+            return data; // En cas d'erreur, on renvoie la donnée non compressée
+        }
+    }
 
     @Override
     public void main() throws MoveException {
@@ -30,7 +46,7 @@ public class AgentImage extends AgentImpl {
 
             if (data != null) {
                 for (int i = 0; i < nbFichiers; i++) {
-                    // tentative de concaténer 2 tableaux de bytes
+
                     String a = compress(data).toString();
                     results = results + a;
                 }
@@ -45,23 +61,6 @@ public class AgentImage extends AgentImpl {
             endingTime = System.currentTimeMillis();
 
             System.out.println("Temps total Agent pour " + nbFichiers + " fichiers : " + (endingTime - startingTime) + "ms");
-        }
-    }
-
-    public static byte[] compress(byte[] data) {
-        if (data == null || data.length == 0) {
-            return data;
-        }
-
-        try { // compression à revoir
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            GZIPOutputStream gos = new GZIPOutputStream(baos);
-            gos.write(data);
-            gos.finish();
-            return baos.toByteArray();
-        } catch (IOException e) {
-            System.err.println("Erreur lors de la compression : " + e.getMessage());
-            return data; // En cas d'erreur, on renvoie la donnée non compressée
         }
     }
 

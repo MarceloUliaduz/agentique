@@ -1,7 +1,3 @@
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
 public class LanceurClient {
     public static void main(String[] args) throws Exception {
         if (args.length < 3) {

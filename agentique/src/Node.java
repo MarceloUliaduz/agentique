@@ -1,5 +1,5 @@
-import java.util.Objects;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Node implements Serializable {
     private String name;
