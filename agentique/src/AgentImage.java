@@ -34,7 +34,6 @@ public class AgentImage extends AgentImpl {
                 }
             }
 
-
             System.out.println("Avant de retourner à la maison");
             place = null;
             back();

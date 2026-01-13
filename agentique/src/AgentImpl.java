@@ -34,13 +34,13 @@ public class AgentImpl implements Agent {
 
             String className = this.getClass().getName();
 
-            // Lecture code du .class -----> Deepseek
+            // Lecture code du .class
             String classPath = className.replace('.', '/') + ".class";
             ;
 
             InputStream classStream = this.getClass().getClassLoader().getResourceAsStream(classPath);
 
-            // Lire tous les bytes de la classe -----> Deepseek
+            // Lire tous les bytes de la classe
             ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[4096];
             int bytesRead;
